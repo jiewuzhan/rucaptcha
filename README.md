@@ -70,7 +70,7 @@ For recommendation, configure the `cache_store`（more details on [Rails Guides 
 
 Controller `app/controller/account_controller.rb`
 
-When you called `verify_rucaptcha?`, it uses value from `params[:_rucaptcha]` to validate.
+When you called `verify_rucaptcha?`, it uses value from `params[:captcha]` to validate.
 
 ```rb
 class AccountController < ApplicationController

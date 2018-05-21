@@ -45,14 +45,14 @@ describe RuCaptcha do
 
   describe '.verify_rucaptcha?' do
     context 'Nil of param' do
-      it 'should work when params[:_rucaptcha] is nil' do
-        simple.params[:_rucaptcha] = nil
+      it 'should work when params[:captcha] is nil' do
+        simple.params[:captcha] = nil
         expect(simple.verify_rucaptcha?).to eq(false)
       end
 
       it 'should work when session[:_rucaptcha] is nil' do
         simple.clean_custom_session
-        simple.params[:_rucaptcha] = 'Abcd'
+        simple.params[:captcha] = 'Abcd'
         expect(simple.verify_rucaptcha?).to eq(false)
       end
     end
@@ -63,7 +63,7 @@ describe RuCaptcha do
           time: Time.now.to_i,
           code: 'abcd'
         })
-        simple.params[:_rucaptcha] = 'Abcd'
+        simple.params[:captcha] = 'Abcd'
         expect(simple.verify_rucaptcha?).to eq(true)
         expect(simple.custom_session).to eq nil
 
@@ -71,7 +71,7 @@ describe RuCaptcha do
           time: Time.now.to_i,
           code: 'abcd'
         })
-        simple.params[:_rucaptcha] = 'AbcD'
+        simple.params[:captcha] = 'AbcD'
         expect(simple.verify_rucaptcha?).to eq(true)
       end
 
@@ -80,7 +80,7 @@ describe RuCaptcha do
           time: Time.now.to_i,
           code: 'abcd'
         })
-        simple.params[:_rucaptcha] = 'abcd'
+        simple.params[:captcha] = 'abcd'
         expect(simple.verify_rucaptcha?(nil, keep_session: true)).to eq(true)
         expect(simple.custom_session).not_to eq nil
         expect(simple.verify_rucaptcha?).to eq(true)
@@ -94,7 +94,7 @@ describe RuCaptcha do
           time: Time.now.to_i - 60,
           code: 'abcd'
         })
-        simple.params[:_rucaptcha] = 'd123'
+        simple.params[:captcha] = 'd123'
         expect(simple.verify_rucaptcha?).to eq(false)
         expect(simple.custom_session).to eq nil
       end
@@ -106,7 +106,7 @@ describe RuCaptcha do
           time: Time.now.to_i - 121,
           code: 'abcd'
         })
-        simple.params[:_rucaptcha] = 'abcd'
+        simple.params[:captcha] = 'abcd'
         expect(simple.verify_rucaptcha?).to eq(false)
       end
     end
